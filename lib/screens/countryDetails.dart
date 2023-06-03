@@ -67,7 +67,10 @@ class _CountryDetailsState extends State<CountryDetails> {
                     height: 20,
                   ),
                   Text(
-                    "Currency: ${widget.countryData["currencies"].keys.toList().first.toString()}",
+                    widget.countryData["currencies"] != null &&
+                            widget.countryData["currencies"].keys.isNotEmpty
+                        ? "Currency: ${widget.countryData["currencies"].keys.toList().first.toString()}"
+                        : "Currency: N/A",
                     style: const TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
@@ -87,26 +90,30 @@ class _CountryDetailsState extends State<CountryDetails> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "Coat of Arms:",
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  widget.countryData["coatOfArms"]["png"] != null
+                      ? const Text(
+                          "Coat of Arms:",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      : const SizedBox(),
                   const SizedBox(
                     height: 20,
                   ),
                   Center(
-                    child: Container(
-                      width: deviceHeight * 0.1,
-                      height: deviceHeight * 0.15,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            widget.countryData["coatOfArms"]["png"],
-                          ),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
+                    child: widget.countryData["coatOfArms"]["png"] != null
+                        ? Container(
+                            width: deviceHeight * 0.1,
+                            height: deviceHeight * 0.15,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  widget.countryData["coatOfArms"]["png"],
+                                ),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                   ),
                   const SizedBox(
                     height: 25,
